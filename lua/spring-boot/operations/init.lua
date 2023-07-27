@@ -36,6 +36,8 @@ function M.SpringBootRun()
 		.. managementPort
 		.. " '"
 	-- Run the command in a new terminal window
+	
+	print(cmd)
 	vim.fn.termopen(cmd)
 end
 
