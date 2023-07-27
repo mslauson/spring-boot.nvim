@@ -1,2 +1,2 @@
-command! SpringBootRun :lua require('spring-boot').SpringBootRun()
-command! SpringBootDebug :lua require('spring-boot').SpringBootDebug()
+command! SpringBootRun :lua require('spring-boot.operations').SpringBootRun()
+command! SpringBootDebug :lua require('spring-boot.operations').SpringBootDebug()
