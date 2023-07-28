@@ -17,15 +17,15 @@ function spring_boot.setup(opts)
 	-- avoid setting global values outside of this function. Global state
 	-- mutations are hard to debug and test, so having them in a single
 	-- function/module makes it easier to reason about all possible changes
-	spring_boot.options = config.setup(opts)
+	spring_boot.opts = config.setup(opts)
 
 	-- do here any startup your plugin needs, like creating commands and
 	-- mappings that depend on values passed in options
-	vim.api.nvim_create_user_command("SpringBootRun", spring_boot.spring_boot_run(opts), {})
+	vim.api.nvim_create_user_command("SpringBootRun", spring_boot.spring_boot_run(spring_boot.opts), {})
 end
 
 function spring_boot.is_configured()
-	return spring_boot.options ~= nil
+	return spring_boot.opts ~= nil
 end
 
 -- This is a function that will be used outside this plugin code.
@@ -37,7 +37,7 @@ function spring_boot.greet()
 
 	-- try to keep all the heavy logic on pure functions/modules that do not
 	-- depend on Neovim APIs. This makes them easy to test
-	local greeting = my_cool_module.greeting(spring_boot.options.name)
+	local greeting = my_cool_module.greeting(spring_boot.opts.name)
 	print(greeting)
 end
 
@@ -47,5 +47,5 @@ function spring_boot.generic_greet()
 	print("Hello, unnamed friend!")
 end
 
-spring_boot.options = nil
+spring_boot.opts = nil
 return spring_boot
