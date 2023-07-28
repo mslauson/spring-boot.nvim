@@ -18,7 +18,25 @@ local function get_pom_path()
 	return pom_path
 end
 
-function M.spring_boot_run()
+--@param cmd string
+--@param opts spring-boot.config
+local function run_cmd(cmd, opts)
+	if opts.strategy.term == "toggleterm" then
+		require("toggleterm").Terminal
+			:new({
+				cmd = cmd,
+				direction = "float",
+				float_opts = {
+					border = "single",
+				},
+			})
+			:toggle(cmd)
+	else
+		vim.fn.termopen(cmd)
+	end
+end
+
+function M.spring_boot_run(opts)
 	local pom_path = get_pom_path()
 
 	local port = vim.fn.input("Enter port number: ")
@@ -38,10 +56,11 @@ function M.spring_boot_run()
 	-- Run the command in a new terminal window
 
 	print(cmd)
-	vim.fn.termopen(cmd)
+	run_cmd(cmd, opts)
 end
 
-function M.spring_boot_debug()
+--@param opts spring-boot.config
+function M.spring_boot_debug(opts)
 	local pom_path = get_pom_path()
 
 	local port = vim.fn.input("Enter port number: ")
@@ -60,7 +79,7 @@ function M.spring_boot_debug()
 		.. managementPort
 		.. " '"
 	-- Run the command in a new terminal window
-	vim.fn.termopen(cmd)
+	run_cmd(cmd, opts)
 end
 
 return M
