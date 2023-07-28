@@ -21,6 +21,7 @@ end
 --@param cmd string
 --@param opts spring-boot.config
 local function run_cmd(cmd, opts)
+	print(opts)
 	if opts.strategy.term == "toggleterm" then
 		require("toggleterm").Terminal
 			:new({
@@ -30,7 +31,7 @@ local function run_cmd(cmd, opts)
 					border = "single",
 				},
 			})
-			:toggle(cmd)
+			:toggle()
 	else
 		vim.fn.termopen(cmd)
 	end
